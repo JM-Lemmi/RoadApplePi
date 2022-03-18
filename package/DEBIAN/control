@@ -1,0 +1,6 @@
+Package: RoadApplePi
+Version: 0.2.0-jle
+Architecture: armhf
+Maintainer: Julian Lemmerich <mail@julian-lemmerich.de>
+Description: Welcome to RoadApplePi setup. RoadApplePi is \"Black Box\" software that can be retrofitted into any car with an OBD port.
+Depends: dnsmasq, hostapd, libbluetooth-dev, apache2, php7.4, php7.4-mysql, php7.4-bcmath, mariadb-server, libmariadb-dev, libmariadb-dev-compat, uvcdynctrl

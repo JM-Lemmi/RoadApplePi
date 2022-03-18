@@ -1,0 +1,27 @@
+cp -r html /var/www/
+rm /var/www/html/index.html
+chown -R www-data:www-data /var/www/html
+chmod -R 0755 /var/www/html
+install -o root -g root -m 0755 raprec.service /lib/systemd/system
+[ -f /etc/default/raprec ] || install -o root -g root -m 0644 -T raprec.defaults /etc/default/raprec
+systemctl daemon-reload
+systemctl enable raprec
+cp hostapd-rap.conf /etc/hostapd
+cp dnsmasq.conf /etc
+mkdir /var/www/html/vids
+chown -R www-data:www-data /var/www/html
+
+# Enable SSL and HTTP => HTTPS redirect.
+install -o root -g root -m 0644 rewrite-ssl.conf /etc/apache2/sites-available
+a2enmod ssl
+a2ensite default-ssl
+a2enmod rewrite
+a2ensite rewrite-ssl
+a2dissite 000-default
+
+installDate=$(date)
+cp roadapplepi.sql roadapplepi-configd.sql
+echo "INSERT INTO env (name, value) VALUES (\"rapVersion\", \"$softwareVersion\"), (\"installDate\", \"$installDate\");" >> roadapplepi-configd.sql
+mysql < roadapplepi-configd.sql
+
+echo "Done! Please reboot your Raspberry Pi now"
