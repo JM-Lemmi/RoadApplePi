@@ -34,8 +34,8 @@ sudo apt upgrade -y
 ###########################################
 echo -e "\e[1;4;93mStep 2. Install pre-built dependencies from Apt\e[0m"
 sudo apt install -y dnsmasq hostapd libbluetooth-dev apache2 \
-    php7.1 php7.1-mysql php7.1-bcmath \
-    mariadb-server libmariadbclient-dev libmariadb-dev-compat \
+    php7.4 php7.4-mysql php7.4-bcmath \
+    mariadb-server libmariadb-dev libmariadb-dev-compat \
     uvcdynctrl
 sudo systemctl disable hostapd dnsmasq
 sudo apt install -y ffmpeg
