@@ -79,6 +79,9 @@ sudo cp dnsmasq.conf /etc
 sudo mkdir /var/www/html/vids
 sudo chown -R www-data:www-data /var/www/html
 
+#Enable raspi camera module
+raspi-config nonint do_camera 1
+
 # Enable SSL and HTTP => HTTPS redirect.
 sudo install -o root -g root -m 0644 rewrite-ssl.conf /etc/apache2/sites-available
 sudo a2enmod ssl
