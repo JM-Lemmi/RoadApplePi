@@ -19,9 +19,16 @@ a2enmod rewrite
 a2ensite rewrite-ssl
 a2dissite 000-default
 
+cp /tmp/dnsmasq.conf /etc/dnsmasq/dnsmasq.conf
+
 installDate=$(date)
 cp /tmp/roadapplepi.sql /tmp/roadapplepi-configd.sql
 echo "INSERT INTO env (name, value) VALUES (\"rapVersion\", \"$softwareVersion\"), (\"installDate\", \"$installDate\");" >> /tmp/roadapplepi-configd.sql
 mysql < /tmp/roadapplepi-configd.sql
 
 echo "Done! Please reboot your Raspberry Pi now"
+
+## Issues
+
+#sudo chmod +x /usr/bin/raprec
+#raspi-config nonint do_camera 1 #in ln 12 does not seem to work, have to enable interactively
