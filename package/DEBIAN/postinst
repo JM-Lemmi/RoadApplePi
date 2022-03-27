@@ -9,7 +9,7 @@ mkdir /var/www/html/vids
 chown -R www-data:www-data /var/www/html
 
 #Enable raspi camera module
-raspi-config nonint do_camera 1
+raspi-config nonint do_camera 1 #does not seem to work, have to enable interactively
 
 # Enable SSL and HTTP => HTTPS redirect.
 chmod 0644  /etc/apache2/sites-available
@@ -27,8 +27,3 @@ echo "INSERT INTO env (name, value) VALUES (\"rapVersion\", \"$softwareVersion\"
 mysql < /tmp/roadapplepi-configd.sql
 
 echo "Done! Please reboot your Raspberry Pi now"
-
-## Issues
-
-#sudo chmod +x /usr/bin/raprec
-#raspi-config nonint do_camera 1 #in ln 12 does not seem to work, have to enable interactively
