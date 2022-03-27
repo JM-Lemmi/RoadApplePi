@@ -1,12 +1,10 @@
 rm /var/www/html/index.html
 chown -R www-data:www-data /var/www/html
 chmod -R 0755 /var/www/html
-install -o root -g root -m 0755 /tmp/raprec.service /lib/systemd/system
-[ -f /etc/default/raprec ] || install -o root -g root -m 0644 -T /tmp/raprec.defaults /etc/default/raprec
+chmod 0755 /lib/systemd/system
+chmod 0644 /etc/default/raprec
 systemctl daemon-reload
 systemctl enable raprec
-cp /tmp/hostapd-rap.conf /etc/hostapd
-cp /tmp/dnsmasq.conf /etc
 mkdir /var/www/html/vids
 chown -R www-data:www-data /var/www/html
 
@@ -14,7 +12,7 @@ chown -R www-data:www-data /var/www/html
 raspi-config nonint do_camera 1
 
 # Enable SSL and HTTP => HTTPS redirect.
-install -o root -g root -m 0644 /tmp/rewrite-ssl.conf /etc/apache2/sites-available
+chmod 0644  /etc/apache2/sites-available
 a2enmod ssl
 a2ensite default-ssl
 a2enmod rewrite
