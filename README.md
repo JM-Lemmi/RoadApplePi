@@ -30,19 +30,34 @@ RoadApplePi is designed to work with as little or much as you have. Bare minimum
  1. Flash Raspbian (lite) onto an SD Card and boot your Raspberry Pi, performing any initial setup needed to get it connected to the internet
  2. From the command line, run:
 	```
-	sudo apt update && sudo apt install -y git
-	git clone https://github.com/JVital2013/RoadApplePi
-	cd RoadApplePi
-	./setup.sh
+	sudo apt update && sudo apt upgrade -y
+	wget https://www.github.com/JM-Lemmi/RoadApplePi/releases/latest/download/roadapplepi.deb
+	sudo apt install ./roadapplepi.deb
+	sudo raspi-config # navigate to "interface options" > "legacy camera" > activate
 	sudo reboot
 	```
-	The setup script may take several hours to run, depending on your Raspberry Pi model
  3. On another device, go to `http://raspberrypi/`.
 	--Note: Your device hostname can be changed by running `sudo raspi-config` on your pi. I've changed mine to "roadapplepi". A feature to change this from the web app will be added in the future
  4. Put it into Access Point mode, specifying a network SSID and Password
  5. After verifying that you can connect to the newly created WiFi network, shut down your Pi and move it out to your car. Connect your webcam to the Pi and the OBDII reader to your car and power the Pi back on
  6. With your ignition in the "Run" position, go to `http://raspberrypi/` (or other hostname if you changed it). From the settings menu, pair your pi with the OBDII reader. Most of them use "1234" for the PIN.
  7. Go for a drive and see how it works!
+
+## Building
+
+If you want to build the package yourself you need to do the following:
+
+```
+git clone <this repository>
+cd RoadApplePi
+make
+cp raprec ./package/usr/bin/raprec
+cp raprun ./package/usr/bin/raprun
+chmod +x ./package/usr/bin/raprec
+chmod u+s ./package/usr/bin/raprun
+dpkg-deb --build --root-owner-group ./package
+sudo apt install ./package.deb
+```
 
 ## Power and Time Options
 If you've made it to this point, great! You should have a fully functional black box in your car. However, you have most likely run into two issues

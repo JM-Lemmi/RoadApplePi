@@ -1,5 +1,5 @@
 # Output files
 *.o
-raprec
-raprun
 roadapplepi-configd.sql
+*.deb
+pi-sd/
