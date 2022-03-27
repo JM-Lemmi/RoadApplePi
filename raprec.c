@@ -173,11 +173,11 @@ int main()
 				gettimeofday(&tv, NULL);
 
 				//Build an FFMPEG command, with the timestamped filename.
-				strLength = snprintf(NULL, 0, "exec %s %s -i %s %s /var/www/html/vids/%ld%03ld.mp4", 
+				strLength = snprintf(NULL, 0, "exec %s %s -i %s %s /var/www/html/vids/%ld%03ld.webm", 
 						     ffmpegPath, ffmpegInputOpts, videoDevice, ffmpegOpts,
 						     tv.tv_sec, tv.tv_usec / 1000) + 1;
 				cmdStr = malloc(strLength);
-				snprintf(cmdStr, strLength, "exec %s %s -i %s %s /var/www/html/vids/%ld%03ld.mp4", 
+				snprintf(cmdStr, strLength, "exec %s %s -i %s %s /var/www/html/vids/%ld%03ld.webm", 
 						     ffmpegPath, ffmpegInputOpts, videoDevice, ffmpegOpts,
 						     tv.tv_sec, tv.tv_usec / 1000);
 
