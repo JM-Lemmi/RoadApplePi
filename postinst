@@ -1,0 +1,29 @@
+rm /var/www/html/index.html
+chown -R www-data:www-data /var/www/html
+chmod -R 0755 /var/www/html
+chmod 0755 /lib/systemd/system
+chmod 0644 /etc/default/raprec
+systemctl daemon-reload
+systemctl enable raprec
+mkdir /var/www/html/vids
+chown -R www-data:www-data /var/www/html
+
+#Enable raspi camera module
+raspi-config nonint do_camera 1 #does not seem to work, have to enable interactively
+
+# Enable SSL and HTTP => HTTPS redirect.
+chmod 0644  /etc/apache2/sites-available
+a2enmod ssl
+a2ensite default-ssl
+a2enmod rewrite
+a2ensite rewrite-ssl
+a2dissite 000-default
+
+cp /tmp/dnsmasq.conf /etc/dnsmasq/dnsmasq.conf
+
+installDate=$(date)
+cp /tmp/roadapplepi.sql /tmp/roadapplepi-configd.sql
+echo "INSERT INTO env (name, value) VALUES (\"rapVersion\", \"$softwareVersion\"), (\"installDate\", \"$installDate\");" >> /tmp/roadapplepi-configd.sql
+mysql < /tmp/roadapplepi-configd.sql
+
+echo "Done! Please reboot your Raspberry Pi now"
