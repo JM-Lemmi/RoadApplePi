@@ -42,7 +42,7 @@
 
 #define VIDEO_DEVICE "/dev/video0"
 #define FFMPEG_PATH "/usr/bin/ffmpeg"
-#define FFMPEG_INPUT_OPTS "-f v4l2 -s 1296x730"
+#define FFMPEG_INPUT_OPTS "-f v4l2 -s 1280x720"
 #define FFMPEG_OPTS "-y -c:v h264_omx -b:v 5M"
 
 //Global variables
@@ -173,11 +173,11 @@ int main()
 				gettimeofday(&tv, NULL);
 
 				//Build an FFMPEG command, with the timestamped filename.
-				strLength = snprintf(NULL, 0, "exec %s %s -i %s %s /var/www/html/vids/%ld%03ld.webm", 
+				strLength = snprintf(NULL, 0, "exec %s %s -i %s %s /var/www/html/vids/%ld%03ld.mkv", 
 						     ffmpegPath, ffmpegInputOpts, videoDevice, ffmpegOpts,
 						     tv.tv_sec, tv.tv_usec / 1000) + 1;
 				cmdStr = malloc(strLength);
-				snprintf(cmdStr, strLength, "exec %s %s -i %s %s /var/www/html/vids/%ld%03ld.webm", 
+				snprintf(cmdStr, strLength, "exec %s %s -i %s %s /var/www/html/vids/%ld%03ld.mkv", 
 						     ffmpegPath, ffmpegInputOpts, videoDevice, ffmpegOpts,
 						     tv.tv_sec, tv.tv_usec / 1000);
 
